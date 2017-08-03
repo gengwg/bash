@@ -63,7 +63,7 @@ Usage: $0 <subcommand>
         hello_world     --> hello world
         status          --> status
         pull_api        --> pull lates api code
-        pull_mysqldb    --> pull lates mysql db
+        pull_appdb    --> pull lates app db
         ut              --> unit tests
         ft              --> functional tests
         ui              --> show swagger api page 
@@ -88,10 +88,10 @@ pull_api()
 
 }
 
-pull_mysqldb()
-{   # pull latest mysql db
-    echo '--> Pulling latest mysql DB'
-    python pull_mysqldb.py
+pull_appdb()
+{   # pull latest app db
+    echo '--> Pulling latest app DB'
+    python pull_appdb.py
 }
 
 ui ()
@@ -119,7 +119,7 @@ main ()
 
     pull_api
 
-    pull_mysqldb
+    pull_appdb
 
     echo '--> Starting dev environment'
     vagrant up
@@ -147,7 +147,7 @@ status ()
     (vagrant ssh -c 'ps aux | grep run.py | grep -v vagrant' &> /dev/null) && echo 'app api process is running' || echo 'app api process is NOT running' 
 
     echo '--> app db status:'
-    (vagrant ssh -c 'mysql -u app_rw -pkasDFjgr7234DGher78 appdb -e "SELECT DATABASE()";' &> /dev/null) && echo 'app db process is running' || echo 'app db process is NOT running'
+    (vagrant ssh -c 'mysql -u app_rw -pabcdxyz appdb -e "SELECT DATABASE()";' &> /dev/null) && echo 'app db process is running' || echo 'app db process is NOT running'
 }
 
 hello_world ()
@@ -181,8 +181,8 @@ run ()
         "ut")      
               ut
               ;;
-        "pull_mysqldb")      
-              pull_mysqldb
+        "pull_appdb")      
+              pull_appdb
               ;;
         "ft")      
               ft
