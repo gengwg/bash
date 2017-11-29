@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+# find ~ -name '*~' | xargs rm
+# find ~ -name '*~' 
+find . -name '*~' -exec rm {} \;
+
+# find ~ -name '*~' -exec rm {} \;
+
+# purge conflicted files in owncloud
+# cd owncloud
+# find . -name '*conflict*' -exec rm {} \;
+
