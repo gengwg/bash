@@ -44,3 +44,26 @@ This will always run
 $ false ; echo "This will always run"
 This will always run
 ```
+
+One can test conditions by `eval`:
+
+```
+$ a=2
+
+$ eval [ "$a" -eq 2 ]
+$ echo $?
+0 # true
+
+$ eval [ "$a" -eq 3 ]
+$ echo $?
+1 # false
+```
+
+Or simply run an example with your condition:
+
+```
+$ [ "$a" -eq 2 ] && echo hello
+hello
+$ [ "$a" -eq 3 ] && echo hello
+$
+```
