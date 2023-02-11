@@ -28,7 +28,7 @@ list=$(df 2>&1 | grep 'Stale file handle' | awk '{print ""$2"" }' |  tr -d : |  
 for directory in $list
 do
   # using lazy unmount is safest
-	umount -l "$directory"
+  umount -l "$directory"
   # then attempt to remount
-	mount -a
+  mount -a
 done
