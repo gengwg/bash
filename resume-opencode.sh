@@ -157,6 +157,19 @@ open_terminator() {
   terminator --no-dbus -g "$cfg" -l opencode-resume
 }
 
+# Add one tab per session to the CURRENT terminator window (DBus remote
+# control), instead of launching a separate terminator window.
+open_terminator_tabs() {
+  have terminator || return 1
+  echo "Adding ${#launchers[@]} tab(s) to the current Terminator window..."
+  local n
+  for n in "${!launchers[@]}"; do
+    terminator --new-tab -x "${launchers[$n]}" &
+    sleep 0.2
+  done
+  wait
+}
+
 open_tmux() {
   have tmux || { echo "tmux not installed either. Install one of: terminator, gnome-terminal, konsole, xfce4-terminal, tilix, or tmux." >&2; exit 1; }
   local s="opencode-sessions"
@@ -191,7 +204,7 @@ fi
 # TERMINATOR_UUID is exported into every terminator terminal, so this means
 # "we were launched from terminator" -> honour it over any other terminal.
 if [ -n "${TERMINATOR_UUID:-}" ] && have terminator; then
-  open_terminator
+  open_terminator_tabs
 
 elif have gnome-terminal || have mate-terminal; then
   TERM_BIN="$(command -v gnome-terminal || command -v mate-terminal)"
