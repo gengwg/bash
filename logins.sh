@@ -5,7 +5,7 @@
 ### user.
 ###
 #######################################################
-if [[ $# < 1 ]]; then
+if [[ $# -lt 1 ]]; then
     echo "Usage: $0 <user>"
     echo "For example: $0 gengwg"
     echo ""
@@ -14,8 +14,8 @@ fi
 
 echo "Successful login attempts: "
 echo "-----"
-last | grep $1
+last | grep "$1"
 echo "Failed login attempts: "
 echo "-----"
-lastb | grep $1
+lastb | grep "$1"
 

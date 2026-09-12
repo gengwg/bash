@@ -97,7 +97,7 @@ while IFS=$'\t' read -r id cwd stitle; do
     printf "printf '\\\\033]0;%%s\\\\007' %q\n" "$title"
     printf 'cd %q\n' "$cwd"
     printf 'opencode --session %q\n' "$id"
-    echo 'exec "${SHELL:-/bin/zsh}"'
+    echo "exec \"\${SHELL:-/bin/zsh}\""
   } > "$L"
   chmod +x "$L"
   launchers+=("$L")

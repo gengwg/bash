@@ -12,18 +12,18 @@ if [ "$#" -ne "1" ]; then
 fi
 
 return-limits(){
-   for process in $@; do
-      process_pids=`ps -C $process -o pid --no-headers | cut -d " " -f 2`
+   for process in "$@"; do
+      process_pids=$(ps -C "$process" -o pid --no-headers | cut -d " " -f 2)
 
-      if [ -z $@ ]; then
+      if [ -z "$process_pids" ]; then
          echo "[no $process running]"
       else
          for pid in $process_pids; do
             echo "[$process #$pid -- limits]"
-            cat /proc/$pid/limits
+            cat "/proc/$pid/limits"
       done
       fi
    done
 }
 
-return-limits $1
+return-limits "$1"
