@@ -37,7 +37,7 @@ done
 [ -d "$PROJECTS_DIR" ] || { echo "No Claude Code dir at $PROJECTS_DIR" >&2; exit 1; }
 
 # --- find the N most recently modified session files --------------------
-mapfile -t files < <(ls -t "$PROJECTS_DIR"/*/*.jsonl 2>/dev/null | head -n "$COUNT")
+mapfile -t files < <(find "$PROJECTS_DIR" -mindepth 2 -maxdepth 2 -name '*.jsonl' -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -n "$COUNT" | cut -d' ' -f2-)
 [ "${#files[@]}" -gt 0 ] || { echo "No *.jsonl sessions under $PROJECTS_DIR" >&2; exit 1; }
 
 # --- write one launcher script per session (avoids all quoting issues) --

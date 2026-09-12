@@ -19,7 +19,7 @@ install_dependencies()
 fix_mysql()
 {
     n=$(grep -m 1 -n 'NO_ENGINE_SUBSTITUTION' /etc/my.cnf | cut -d ':' -f 1)
-    head -n $n /etc/my.cnf > /tmp/my.cnf.tmp
+    head -n "$n" /etc/my.cnf > /tmp/my.cnf.tmp
     cat >> /tmp/my.cnf.tmp << EOF
 
 ####################
@@ -49,19 +49,19 @@ config_mysql()
 
 import_appdb()
 { # import data
-    cd /vagrant
+    cd /vagrant || return 1
     mysql -u app_rw -preadwritepasswd -h localhost appdb < appdb.sql
-    cd -
+    cd - >/dev/null || return 1
 }
 
 start_app_api()
 {
     # start app api
-    cd /vagrant/app-api
+    cd /vagrant/app-api || return 1
     pip install --upgrade --force-reinstall pep8
     pip install --force-reinstall -r requirements.txt
     TEST_APP_FILES_DIR=./examples/ python run.py &
-    cd -
+    cd - >/dev/null || return 1
 }
 
 main ()

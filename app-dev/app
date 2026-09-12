@@ -39,8 +39,7 @@
 #         test            --> unit tests
  
 
-ME=`basename $0`
-VERSION='0.1.0'
+ME=$(basename "$0")
 VERBOSE=false
 args=("$@")
 arglen=$#
@@ -54,7 +53,7 @@ fi
 
 usage()
 {
-    usage="$(basename "$0") -- program to calculate the answer to life
+    usage="$ME -- program to calculate the answer to life
 Usage: $0 <subcommand>
     subcommands:
         help            --> show this message
@@ -69,7 +68,7 @@ Usage: $0 <subcommand>
         ui              --> show swagger api page 
     "
     echo "$usage"
-    exit 1
+    return 1
 }
 
 pull_api()
@@ -163,7 +162,7 @@ run ()
     PARAMS=1     
     E_BAD_PARAMS=91
 
-    [ $arglen -eq $PARAMS ] || (echo -e "$(basename "$0"): Bad Argument\n"; usage; exit $E_BAD_PARAMS)
+    [ "$arglen" -eq "$PARAMS" ] || (echo -e "$ME: Bad Argument\n"; usage; exit "$E_BAD_PARAMS")
 
     case "${args[0]}" in
         "up")         
@@ -194,9 +193,9 @@ run ()
               usage
               ;;
         *)         
-              echo -e "$(basename "$0"): Unknown command!\n"
+              echo -e "$ME: Unknown command!\n"
               usage;
-              exit $E_BAD_PARAMS
+              exit "$E_BAD_PARAMS"
               ;;
       esac
 }
